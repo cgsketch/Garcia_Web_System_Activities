@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Forms Exercises 1-14</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; line-height: 1.6; }
+        fieldset { margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; }
+        legend { font-weight: bold; background: #eee; padding: 5px 10px; border-radius: 3px; }
+        label { display: inline-block; width: 150px; vertical-align: top; }
+        input, select, textarea { margin-bottom: 10px; padding: 5px; }
+        .error { border: 2px solid red; background-color: #ffe6e6; }
+        button { cursor: pointer; padding: 5px 15px; background: #007BFF; color: white; border: none; border-radius: 3px; }
+        button:hover { background: #0056b3; }
+        .native-js-section { background-color: #f9f9f9; border-left: 5px solid orange; padding-left: 10px; }
+        .jquery-section { background-color: #f0f8ff; border-left: 5px solid blue; padding-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>HTML Forms Exercises 1-14</h1>
+
+    <fieldset>
+        <legend>Ex 1: Basic Login Form</legend>
+        <form>
+            <label for="ex1-user">Username:</label>
+            <input type="text" id="ex1-user" name="username" required><br>
+            <label for="ex1-pass">Password:</label>
+            <input type="password" id="ex1-pass" name="password" required><br>
+            <button type="submit">Login</button>
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Ex 2: Email Input</legend>
+        <form>
+            <label for="ex2-email">Email:</label>
+            <input type="email" id="ex2-email" name="email" placeholder="Enter your email">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Ex 3: Radios & Checkboxes</legend>
+        <form>
+            <p><strong>Choose your role:</strong></p>
+            <input type="radio" id="student" name="role" value="student">
+            <label for="student" style="width:auto;">Student</label>
+            <input type="radio" id="teacher" name="role" value="teacher">
+            <label for="teacher" style="width:auto;">Teacher</label>
+
+            <p><strong>Select your interests:</strong></p>
+            <input type="checkbox" id="html" name="interest" value="HTML">
+            <label for="html" style="width:auto; margin-right:15px;">HTML</label>
+            <input type="checkbox" id="css" name="interest" value="CSS">
+            <label for="css" style="width:auto;">CSS</label>
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Ex 4: Select Dropdown</legend>
+        <label for="ex4-country">Country:</label>
+        <select id="ex4-country" name="country">
+            <option value="ph">Philippines</option>
+            <option value="us">United States</option>
+            <option value="jp">Japan</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+        <legend>Ex 5: Textarea</legend>
+        <label for="ex5-msg">Your Message:</label><br>
+        <textarea id="ex5-msg" name="message" rows="4" cols="40"></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>Ex 6: HTML Attributes Validation</legend>
+        <form>
+            <label>Username (3-10 chars):</label>
+            <input type="text" name="username" required minlength="3" maxlength="10"><br>
+            <label>Email (Required):</label>
+            <input type="email" name="email" required><br>
+            <button type="submit">Test Validation</button>
+        </form>
+    </fieldset>
+
+    <div class="native-js-section">
+        <h3>Native JavaScript Exercises (7-9)</h3>
+
+        <fieldset>
+            <legend>Ex 7: JS Submit Alert</legend>
+            <form id="ex7-form">
+                <label>Name:</label>
+                <input type="text" id="ex7-name" required>
+                <button type="submit">Submit</button>
+            </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>Ex 8: JS Character Count</legend>
+            <label>Bio (Max 100):</label><br>
+            <textarea id="ex8-bio" maxlength="100" rows="3" cols="30"></textarea>
+            <p id="ex8-count">0/100</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Ex 9: JS Toggle Password</legend>
+            <label>Password:</label>
+            <input type="password" id="ex9-pwd">
+            <button type="button" onclick="togglePwdNative()">Show/Hide</button>
+        </fieldset>
+    </div>
+
+    <div class="jquery-section">
+        <h3>jQuery Exercises (10-14)</h3>
+
+        <fieldset>
+            <legend>Ex 10: jQuery Submit Alert</legend>
+            <form id="ex10-form">
+                <label>Required Field:</label>
+                <input type="text" required>
+                <button type="submit">Submit</button>
+            </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>Ex 11: jQuery Toggle Password</legend>
+            <label>Password:</label>
+            <input type="password" id="ex11-pwd">
+            <button type="button" id="ex11-toggle">Show/Hide</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Ex 12: jQuery Char Count</legend>
+            <label>Bio (Max 100):</label><br>
+            <textarea id="ex12-bio" maxlength="100" rows="3" cols="30"></textarea>
+            <p id="ex12-count">0/100</p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Ex 13 & 14: Validation & Highlight Error</legend>
+            <form id="ex13-form">
+                <label>Username:</label>
+                <input type="text" id="ex13-user" placeholder="Username"><br>
+                <label>Password:</label>
+                <input type="password" id="ex13-pass" placeholder="Password"><br>
+                <button type="submit">Login</button>
+            </form>
+        </fieldset>
+    </div>
+
+    <script>
+        document.getElementById("ex7-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Form submitted! (Native JS)");
+        });
+
+        const bioNative = document.getElementById("ex8-bio");
+        const countNative = document.getElementById("ex8-count");
+        bioNative.addEventListener("input", function() {
+            countNative.textContent = bioNative.value.length + "/100";
+        });
+
+        function togglePwdNative() {
+            const pwd = document.getElementById("ex9-pwd");
+            pwd.type = (pwd.type === "password") ? "text" : "password";
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            $("#ex10-form").submit(function(event) {
+                event.preventDefault();
+                alert("Form submitted with jQuery!");
+            });
+
+            $("#ex11-toggle").click(function(){
+                let pwd = $("#ex11-pwd");
+                let type = (pwd.attr("type") === "password") ? "text" : "password";
+                pwd.attr("type", type);
+            });
+
+            $("#ex12-bio").on("input", function(){
+                $("#ex12-count").text($(this).val().length + "/100");
+            });
+
+            $("#ex13-form").submit(function(e) {
+                e.preventDefault();
+                let user = $("#ex13-user");
+                let pass = $("#ex13-pass");
+                let isValid = true;
+
+                user.removeClass("error");
+                pass.removeClass("error");
+
+                if(user.val() === "") {
+                    user.addClass("error");
+                    isValid = false;
+                }
+                if(pass.val() === "") {
+                    pass.addClass("error");
+                    isValid = false;
+                }
+
+                if(!isValid) {
+                    alert("Please fill in all highlighted fields (Ex 13 & 14)");
+                } else {
+                    alert("Login successful!");
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
