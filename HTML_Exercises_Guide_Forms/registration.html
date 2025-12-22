@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form - Exercise 15</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; padding-top: 50px; }
+        .form-container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 400px; }
+        h2 { text-align: center; color: #333; }
+        label { font-weight: bold; display: block; margin-top: 10px; color: #555; }
+        input[type="text"], input[type="email"], input[type="password"], select, textarea { 
+            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; 
+        }
+        .radio-group, .checkbox-group { margin-top: 5px; }
+        .radio-group label, .checkbox-group label { display: inline; font-weight: normal; margin-right: 15px; }
+        .error-border { border: 2px solid #e74c3c !important; background-color: #fadbd8; }
+        .char-count { font-size: 0.85em; color: #777; text-align: right; margin-top: 2px; }
+        button[type="submit"] { 
+            width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 5px; font-size: 16px; margin-top: 20px; cursor: pointer; transition: background 0.3s;
+        }
+        button[type="submit"]:hover { background-color: #219150; }
+        .toggle-btn { 
+            background: none; border: none; color: #007bff; cursor: pointer; font-size: 0.8em; text-decoration: underline; padding: 0; float: right; margin-top: -30px; margin-right: 10px; position: relative; z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="regForm">
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Choose a username">
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="example@email.com">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Secure password">
+        <button type="button" class="toggle-btn" id="togglePwd">Show</button>
+
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Retype password">
+
+        <label>Gender</label>
+        <div class="radio-group">
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+        </div>
+
+        <label for="country">Country</label>
+        <select id="country" name="country">
+            <option value="">-- Select Country --</option>
+            <option value="PH">Philippines</option>
+            <option value="US">United States</option>
+            <option value="JP">Japan</option>
+        </select>
+
+        <label>Interests</label>
+        <div class="checkbox-group">
+            <input type="checkbox" id="coding" name="interests" value="Coding">
+            <label for="coding">Coding</label>
+            <input type="checkbox" id="design" name="interests" value="Design">
+            <label for="design">Design</label>
+            <input type="checkbox" id="gaming" name="interests" value="Gaming">
+            <label for="gaming">Gaming</label>
+        </div>
+
+        <label for="bio">Short Bio (Max 150)</label>
+        <textarea id="bio" name="bio" rows="3" maxlength="150"></textarea>
+        <div id="charCount" class="char-count">0/150</div>
+
+        <button type="submit">Register Account</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $("#bio").on("input", function() {
+            let currentLength = $(this).val().length;
+            $("#charCount").text(currentLength + "/150");
+        });
+
+        $("#togglePwd").click(function() {
+            let pwdInput = $("#password");
+            let type = pwdInput.attr("type") === "password" ? "text" : "password";
+            pwdInput.attr("type", type);
+            $(this).text(type === "password" ? "Show" : "Hide");
+        });
+
+        $("#regForm").submit(function(e) {
+            e.preventDefault();
+            let isValid = true;
+            let firstError = null;
+
+            let fields = ["#username", "#email", "#password", "#confirm_password", "#country"];
+
+            fields.forEach(function(field) {
+                let input = $(field);
+                if (input.val().trim() === "") {
+                    input.addClass("error-border");
+                    isValid = false;
+                    if(!firstError) firstError = input;
+                } else {
+                    input.removeClass("error-border");
+                }
+            });
+
+            if ($("input[name='gender']:checked").length === 0) {
+                $(".radio-group").css("border", "1px solid red");
+                isValid = false;
+            } else {
+                $(".radio-group").css("border", "none");
+            }
+
+            let pwd = $("#password").val();
+            let confirmPwd = $("#confirm_password").val();
+            if (pwd !== "" && pwd !== confirmPwd) {
+                alert("Passwords do not match!");
+                $("#confirm_password").addClass("error-border");
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("Registration Successful!\nWelcome, " + $("#username").val() + ".");
+            } else {
+                alert("Please fill in all required fields highlighted in red.");
+                if(firstError) firstError.focus();
+            }
+        });
+
+        $("input, select, textarea").on("input change", function() {
+            $(this).removeClass("error-border");
+        });
+        $("input[name='gender']").change(function() {
+             $(".radio-group").css("border", "none");
+        });
+
+    });
+</script>
+
+</body>
+</html>
