@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated jQuery Exercises (1-20)</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; }
+        .exercise-card { background: white; padding: 15px; border-radius: 8px; width: 300px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h3 { margin-top: 0; font-size: 16px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        button { margin-top: 5px; cursor: pointer; padding: 5px 10px; }
+        .box { width: 100px; height: 100px; border: 1px solid #333; margin-top: 5px; display: flex; align-items: center; justify-content: center; }
+
+        .highlight {
+            background-color: yellow;
+            color: red;
+            font-weight: bold;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>jQuery Exercises</h1>
+    <div class="container">
+
+        <div class="exercise-card">
+            <h3>1. Change Text</h3>
+            <p id="ex1-text">Original Text</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>2. Change Background</h3>
+            <div id="ex2-box" class="box">Box</div>
+        </div>
+
+        <div class="exercise-card">
+            <h3>3. Hide Element</h3>
+            <p id="ex3-text">I will disappear.</p>
+            <button id="ex3-btn">Hide Me</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>4. Show Element</h3>
+            <p id="ex4-text" style="display:none;">I am now visible!</p>
+            <button id="ex4-btn">Show Me</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>5. Toggle Visibility</h3>
+            <p id="ex5-text">Toggle me on/off.</p>
+            <button id="ex5-btn">Toggle</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>6. Add Class</h3>
+            <p id="ex6-text">I need a highlight.</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>7. Remove Class</h3>
+            <p id="ex7-text" class="highlight">I have a class (remove me).</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>8. Toggle Class</h3>
+            <p id="ex8-text">Click button to toggle class.</p>
+            <button id="ex8-btn">Toggle Class</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>9. Change Image</h3>
+            <img id="ex9-img" src="https://via.placeholder.com/100/0000FF/808080?text=Old+Img" alt="Image">
+        </div>
+
+        <div class="exercise-card">
+            <h3>10. Get Input Value</h3>
+            <input type="text" id="ex10-input" value="Hello World">
+            <button id="ex10-btn">Alert Value</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>11. Set Input Value</h3>
+            <input type="text" id="ex11-input" placeholder="Waiting for JS...">
+        </div>
+
+        <div class="exercise-card">
+            <h3>12. Append Content</h3>
+            <p id="ex12-text">Start.</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>13. Prepend Content</h3>
+            <p id="ex13-text">End.</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>14. Fade Out</h3>
+            <div id="ex14-box" class="box" style="background: red; color: white;">Click to Fade</div>
+        </div>
+
+        <div class="exercise-card">
+            <h3>15. Fade In</h3>
+            <div id="ex15-box" class="box" style="display:none; background: blue; color: white;">I Faded In!</div>
+            <button id="ex15-btn">Fade In Box</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>16. Slide Up</h3>
+            <div id="ex16-panel" style="background: lightgreen; padding: 10px;">Sliding content...</div>
+            <button id="ex16-btn">Slide Up</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>17. Slide Down</h3>
+            <div id="ex17-panel" style="display: none; background: lightgreen; padding: 10px;">Hidden Content</div>
+            <button id="ex17-btn">Slide Down</button>
+        </div>
+
+        <div class="exercise-card">
+            <h3>18. Multiple CSS</h3>
+            <p id="ex18-text">I will change style.</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>19. Mouseover</h3>
+            <p id="ex19-text">Hover over me!</p>
+        </div>
+
+        <div class="exercise-card">
+            <h3>20. Click Change Text</h3>
+            <p id="ex20-text">Click me.</p>
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function(){
+            
+            $("#ex1-text").text("Hello jQuery!");
+
+            $("#ex2-box").css("background-color", "lightblue");
+
+            $("#ex3-btn").click(function(){
+                $("#ex3-text").hide();
+            });
+
+            $("#ex4-btn").click(function(){
+                $("#ex4-text").show();
+            });
+
+            $("#ex5-btn").click(function(){
+                $("#ex5-text").toggle();
+            });
+
+            $("#ex6-text").addClass("highlight");
+
+            $("#ex7-text").removeClass("highlight");
+
+            $("#ex8-btn").click(function(){
+                $("#ex8-text").toggleClass("highlight");
+            });
+
+            $("#ex9-img").attr("src", "https://via.placeholder.com/100/FF0000/FFFFFF?text=New+Img");
+
+            $("#ex10-btn").click(function(){
+                let val = $("#ex10-input").val();
+                alert("Value is: " + val);
+            });
+
+            $("#ex11-input").val("John Doe");
+
+            $("#ex12-text").append(" Extra text!");
+
+            $("#ex13-text").prepend("Start - ");
+
+            $("#ex14-box").click(function(){
+                $(this).fadeOut();
+            });
+
+            $("#ex15-btn").click(function(){
+                $("#ex15-box").fadeIn();
+            });
+
+            $("#ex16-btn").click(function(){
+                $("#ex16-panel").slideUp();
+            });
+
+            $("#ex17-btn").click(function(){
+                $("#ex17-panel").slideDown();
+            });
+
+            $("#ex18-text").css({
+                "color": "white",
+                "background-color": "black",
+                "padding": "5px"
+            });
+
+            $("#ex19-text").mouseover(function(){
+                $(this).css("color", "red");
+            });
+
+            $("#ex20-text").click(function(){
+                $(this).text("You clicked me!");
+            });
+
+        });
+    </script>
+
+</body>
+</html>
